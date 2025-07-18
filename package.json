@@ -10,11 +10,13 @@
     "preview": "vite preview",
     "test": "ava",
     "test:watch": "ava --watch",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "prepare": "husky",
+    "commitlint": "commitlint --edit"
   },
   "keywords": [
     "latitude",
-    "longitude", 
+    "longitude",
     "coordinates",
     "gps",
     "geographic",
@@ -32,11 +34,14 @@
   },
   "devDependencies": {
     "@ava/typescript": "^6.0.0",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@types/node": "24.0.14",
     "@web/test-runner": "0.20.2",
     "@web/test-runner-playwright": "0.11.1",
     "ava": "6.4.1",
     "gh-pages": "6.3.0",
+    "husky": "^9.1.7",
     "tsx": "^4.20.3",
     "typescript": "5.8.3",
     "vite": "7.0.5"

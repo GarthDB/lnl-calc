@@ -115,9 +115,44 @@ lnl-calc/
 2. Create a feature branch: `git checkout -b feature/new-feature`
 3. Make your changes
 4. Run tests: `pnpm test`
-5. Commit your changes: `git commit -am 'Add new feature'`
+5. Commit your changes using conventional commits (see below)
 6. Push to the branch: `git push origin feature/new-feature`
 7. Submit a pull request
+
+### Commit Message Format
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/) specification. Commit messages are automatically validated using Commitlint and Husky.
+
+**Format**: `<type>[optional scope]: <description>`
+
+**Types:**
+- `feat`: A new feature
+- `fix`: A bug fix
+- `docs`: Documentation only changes
+- `style`: Changes that do not affect the meaning of the code
+- `refactor`: A code change that neither fixes a bug nor adds a feature
+- `perf`: A code change that improves performance
+- `test`: Adding missing tests or correcting existing tests
+- `build`: Changes that affect the build system or external dependencies
+- `ci`: Changes to CI configuration files and scripts
+- `chore`: Other changes that don't modify src or test files
+- `revert`: Reverts a previous commit
+
+**Examples:**
+```bash
+feat: add distance calculation using Haversine formula
+fix: correct coordinate validation for edge cases
+docs: update README with installation instructions
+test: add unit tests for bearing calculations
+chore: add husky and commitlint configuration
+```
+
+**Rules:**
+- Type is required and must be lowercase
+- Description is required and should be lowercase
+- Maximum header length: 100 characters
+- Use present tense ("add" not "added")
+- Don't end with a period
 
 ## License
 
