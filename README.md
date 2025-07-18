@@ -10,13 +10,15 @@ A modern geographic coordinate calculator web application built with Lit, Spectr
 - **Coordinate Conversions**: Convert between decimal degrees, degrees/minutes/seconds (DMS), and other formats
 - **Distance Calculations**: Calculate distances between two geographic points using the Haversine formula
 - **Bearing Calculations**: Determine the bearing/heading between coordinates
-- **Coordinate Validation**: Validate latitude and longitude inputs
+- **Midpoint Calculations**: Find the center point between two coordinates
+- **Coordinate Validation**: Validate latitude and longitude inputs with proper range checking
 - Clean, modern UI using Adobe's Spectrum Design System
 - Responsive design for desktop and mobile use
-- Web Components architecture
-- TypeScript support
+- Web Components architecture with Lit
+- TypeScript support with strict type checking
 - Comprehensive testing with AVA
-- Automatic deployment to GitHub Pages
+- Automatic CI/CD deployment to GitHub Pages
+- Conventional commit enforcement with Husky and Commitlint
 
 ## Tech Stack
 
