@@ -23,12 +23,6 @@
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
-    "@spectrum-web-components/bundle": "^0.14.0",
-    "@spectrum-web-components/button": "^0.17.0",
-    "@spectrum-web-components/card": "^0.3.0",
-    "@spectrum-web-components/dropdown": "^0.10.1",
-    "@spectrum-web-components/menu": "^1.7.0",
-    "@spectrum-web-components/textfield": "^0.15.0",
     "@types/node": "^22.9.0",
     "@web/test-runner": "^0.19.0",
     "ava": "^6.2.0",
