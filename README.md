@@ -2,6 +2,7 @@
 
 [![CI/CD Pipeline](https://github.com/garthdb/lnl-calc/actions/workflows/deploy.yml/badge.svg)](https://github.com/garthdb/lnl-calc/actions/workflows/deploy.yml)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen?logo=github)](https://garthdb.github.io/lnl-calc/)
+[![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen?logo=check)](https://github.com/garthdb/lnl-calc/actions)
 
 A modern geographic coordinate calculator web application built with Lit, Spectrum Web Components, and TypeScript.
 
