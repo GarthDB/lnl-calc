@@ -9,23 +9,40 @@ import {
 
 // Test Decimal Degrees parsing
 test('parseDecimalDegrees - valid formats', t => {
-  // Test coordinate with directions
+  // Test coordinate with directions (space separated)
   const result1 = parseDecimalDegrees('37.7749° N 122.4194° W');
   t.is(result1.latitude, 37.7749);
   t.is(result1.longitude, -122.4194);
   t.true(result1.isValid);
 
-  // Test coordinate with comma separation
-  const result2 = parseDecimalDegrees('+37.7749, -122.4194');
-  t.is(result2.latitude, 37.7749);
-  t.is(result2.longitude, -122.4194);
+  // Test coordinate with comma separation and directions
+  const result2 = parseDecimalDegrees('36.1716° N, 115.1391° W');
+  t.is(result2.latitude, 36.1716);
+  t.is(result2.longitude, -115.1391);
   t.true(result2.isValid);
 
-  // Test coordinate without symbols
-  const result3 = parseDecimalDegrees('37.7749 -122.4194');
+  // Test coordinate with comma separation (signs only)
+  const result3 = parseDecimalDegrees('+37.7749, -122.4194');
   t.is(result3.latitude, 37.7749);
   t.is(result3.longitude, -122.4194);
   t.true(result3.isValid);
+
+  // Test coordinate without symbols (space separated)
+  const result4 = parseDecimalDegrees('37.7749 -122.4194');
+  t.is(result4.latitude, 37.7749);
+  t.is(result4.longitude, -122.4194);
+  t.true(result4.isValid);
+
+  // Test variations of the new format
+  const result5 = parseDecimalDegrees('25.7617° S, 80.1918° W'); // Miami
+  t.is(result5.latitude, -25.7617);
+  t.is(result5.longitude, -80.1918);
+  t.true(result5.isValid);
+
+  const result6 = parseDecimalDegrees('51.5074° N, 0.1278° E'); // London (positive longitude)
+  t.is(result6.latitude, 51.5074);
+  t.is(result6.longitude, 0.1278);
+  t.true(result6.isValid);
 });
 
 test('parseDecimalDegrees - invalid formats', t => {
