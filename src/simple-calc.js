@@ -6,12 +6,12 @@ function parseDecimalDegrees(input) {
   try {
     const cleaned = input.trim().replace(/\s+/g, ' ');
     
-    // Pattern 1: "32.30642° N 122.61458° W"
-    const dmsPattern = /^(-?\d+\.?\d*)°?\s*([NSEW])?\s+(-?\d+\.?\d*)°?\s*([NSEW])?$/i;
-    const dmsMatch = cleaned.match(dmsPattern);
+    // Pattern 1: "32.30642° N 122.61458° W" (space separated)
+    const spacePattern = /^(-?\d+\.?\d*)°?\s*([NSEW])?\s+(-?\d+\.?\d*)°?\s*([NSEW])?$/i;
+    const spaceMatch = cleaned.match(spacePattern);
     
-    if (dmsMatch) {
-      let [, lat, latDir, lng, lngDir] = dmsMatch;
+    if (spaceMatch) {
+      let [, lat, latDir, lng, lngDir] = spaceMatch;
       let latitude = parseFloat(lat);
       let longitude = parseFloat(lng);
       
@@ -21,13 +21,28 @@ function parseDecimalDegrees(input) {
       return validateCoordinates(latitude, longitude);
     }
     
-    // Pattern 2: "+32.30642, -122.61458"
-    const commaPattern = /^([+-]?\d+\.?\d*),?\s*([+-]?\d+\.?\d*)$/;
-    const commaMatch = cleaned.match(commaPattern);
+    // Pattern 2: "36.1716° N, 115.1391° W" (comma separated with directions)
+    const commaDirectionPattern = /^(-?\d+\.?\d*)°?\s*([NSEW])?\s*,\s*(-?\d+\.?\d*)°?\s*([NSEW])?$/i;
+    const commaDirectionMatch = cleaned.match(commaDirectionPattern);
     
-    if (commaMatch) {
-      const latitude = parseFloat(commaMatch[1]);
-      const longitude = parseFloat(commaMatch[2]);
+    if (commaDirectionMatch) {
+      let [, lat, latDir, lng, lngDir] = commaDirectionMatch;
+      let latitude = parseFloat(lat);
+      let longitude = parseFloat(lng);
+      
+      if (latDir && latDir.toUpperCase() === 'S') latitude = -Math.abs(latitude);
+      if (lngDir && lngDir.toUpperCase() === 'W') longitude = -Math.abs(longitude);
+      
+      return validateCoordinates(latitude, longitude);
+    }
+    
+    // Pattern 3: "+32.30642, -122.61458" (comma separated with signs)
+    const commaSignPattern = /^([+-]?\d+\.?\d*),?\s*([+-]?\d+\.?\d*)$/;
+    const commaSignMatch = cleaned.match(commaSignPattern);
+    
+    if (commaSignMatch) {
+      const latitude = parseFloat(commaSignMatch[1]);
+      const longitude = parseFloat(commaSignMatch[2]);
       return validateCoordinates(latitude, longitude);
     }
     

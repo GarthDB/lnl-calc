@@ -21,6 +21,26 @@ A modern geographic coordinate calculator web application built with Lit, Spectr
 - Automatic CI/CD deployment to GitHub Pages
 - Conventional commit enforcement with Husky and Commitlint
 
+## Supported Coordinate Formats
+
+The calculator accepts coordinates in multiple common formats:
+
+### 📍 **Decimal Degrees (DD)**
+- **Space separated**: `37.7749° N 122.4194° W`
+- **Comma separated**: `36.1716° N, 115.1391° W` 
+- **With signs**: `+37.7749, -122.4194`
+- **Plain format**: `37.7749 -122.4194`
+
+### 📍 **Degrees Decimal Minutes (DDM)**
+- `37° 46.494' N 122° 25.164' W`
+- Common in marine navigation and aviation
+
+### 📍 **Degrees Minutes Seconds (DMS)**
+- `37° 46' 29.64" N 122° 25' 9.84" W`
+- Traditional format used on most maps
+
+**Auto-Detection**: The calculator automatically detects which format you're using and parses accordingly. Simply type coordinates in any supported format!
+
 ## Tech Stack
 
 - **Framework**: [Lit](https://lit.dev/) - Simple. Fast. Web Components.
