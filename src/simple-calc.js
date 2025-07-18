@@ -124,7 +124,7 @@ class BasicCalculator extends HTMLElement {
     this.innerHTML = `
       <div style="max-width: 600px; margin: 20px auto; padding: 20px; border: 2px solid #ccc; border-radius: 8px; background: white;">
         <h2 style="margin-top: 0; color: #333;">🧮 Latitude & Longitude Calculator</h2>
-        <p style="color: #666;">Enter coordinates in any format: DD, DDM, or DMS. Auto-detection included!</p>
+        <p style="color: #666;">Enter coordinates in any format: DD, DDM, or DMS. Calculations appear automatically!</p>
         
         <div style="background: #f0f8ff; padding: 10px; border-radius: 4px; margin: 15px 0; font-size: 12px;">
           <strong>Supported Formats:</strong><br>
@@ -147,11 +147,8 @@ class BasicCalculator extends HTMLElement {
           <div id="coord2-status" style="margin-top: 5px; font-size: 12px;"></div>
         </div>
         
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0;">
-          <button id="calc-btn" style="padding: 12px; background: #1473e6; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px;">
-            Calculate Distance & Convert Formats
-          </button>
-          <button id="clear-btn" style="padding: 12px; background: #6b6b6b; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px;">
+        <div style="text-align: center; margin: 20px 0;">
+          <button id="clear-btn" style="padding: 12px 24px; background: #6b6b6b; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px;">
             Clear All
           </button>
         </div>
@@ -164,13 +161,12 @@ class BasicCalculator extends HTMLElement {
   }
   
   connectedCallback() {
-    this.querySelector('#calc-btn').addEventListener('click', () => this.calculate());
     this.querySelector('#clear-btn').addEventListener('click', () => this.clear());
     
     this.querySelector('#coord1').addEventListener('input', (e) => this.validateInput(e.target, 'coord1-status'));
     this.querySelector('#coord2').addEventListener('input', (e) => this.validateInput(e.target, 'coord2-status'));
     
-    console.log('✅ Basic calculator loaded and ready!');
+    console.log('✅ Basic calculator loaded and ready for auto-calculation!');
   }
   
   validateInput(input, statusId) {
@@ -180,6 +176,7 @@ class BasicCalculator extends HTMLElement {
     if (!value) {
       input.style.borderColor = '#ccc';
       status.innerHTML = '';
+      this.querySelector('#results').style.display = 'none';
       return;
     }
     
@@ -193,6 +190,58 @@ class BasicCalculator extends HTMLElement {
       input.style.borderColor = '#ef4444';
       status.innerHTML = `<span style="color: #ef4444;">❌ ${parsed.error}</span>`;
     }
+    
+    // Auto-calculate if both coordinates are valid
+    this.checkAndAutoCalculate();
+  }
+  
+  checkAndAutoCalculate() {
+    const coord1 = this.querySelector('#coord1').value.trim();
+    const coord2 = this.querySelector('#coord2').value.trim();
+    
+    if (!coord1 || !coord2) {
+      return; // Need both coordinates
+    }
+    
+    const parsed1 = parseCoordinates(coord1);
+    const parsed2 = parseCoordinates(coord2);
+    
+    if (parsed1.isValid && parsed2.isValid) {
+      // Both coordinates are valid - auto-calculate!
+      this.performCalculation(parsed1, parsed2, coord1, coord2);
+    } else {
+      // At least one coordinate is invalid - hide results
+      this.querySelector('#results').style.display = 'none';
+    }
+  }
+  
+  performCalculation(parsed1, parsed2, coord1Input, coord2Input) {
+    const results = this.querySelector('#results');
+    const content = this.querySelector('#result-content');
+    
+    const distance = this.calculateDistance(parsed1.latitude, parsed1.longitude, parsed2.latitude, parsed2.longitude);
+    
+    content.innerHTML = `
+      <h3 style="margin-top: 0;">📍 Coordinates & Calculations</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+        <div>
+          <h4>Point 1:</h4>
+          <p><strong>Input:</strong> ${coord1Input}</p>
+          <p><strong>Parsed:</strong> ${parsed1.latitude.toFixed(6)}, ${parsed1.longitude.toFixed(6)}</p>
+        </div>
+        <div>
+          <h4>Point 2:</h4>
+          <p><strong>Input:</strong> ${coord2Input}</p>
+          <p><strong>Parsed:</strong> ${parsed2.latitude.toFixed(6)}, ${parsed2.longitude.toFixed(6)}</p>
+        </div>
+      </div>
+      <div style="background: #e8f4fd; padding: 15px; border-radius: 4px;">
+        <h4>📏 Distance Calculation:</h4>
+        <p><strong>Distance:</strong> ${distance.toFixed(2)} km (${(distance * 0.621371).toFixed(2)} miles)</p>
+        <p><em>Auto-calculated • Using Haversine formula for great circle distance</em></p>
+      </div>
+    `;
+    results.style.display = 'block';
   }
   
   detectFormat(input) {
@@ -202,60 +251,6 @@ class BasicCalculator extends HTMLElement {
       return 'DDM (Degrees Decimal Minutes)';
     } else {
       return 'DD (Decimal Degrees)';
-    }
-  }
-  
-  calculate() {
-    const coord1 = this.querySelector('#coord1').value.trim();
-    const coord2 = this.querySelector('#coord2').value.trim();
-    const results = this.querySelector('#results');
-    const content = this.querySelector('#result-content');
-    
-    if (!coord1 || !coord2) {
-      content.innerHTML = '<p style="color: #ef4444;">⚠️ Please enter both coordinates</p>';
-      results.style.display = 'block';
-      return;
-    }
-    
-    const parsed1 = parseCoordinates(coord1);
-    const parsed2 = parseCoordinates(coord2);
-    
-    if (parsed1.isValid && parsed2.isValid) {
-      const distance = this.calculateDistance(parsed1.latitude, parsed1.longitude, parsed2.latitude, parsed2.longitude);
-      
-      content.innerHTML = `
-        <h3 style="margin-top: 0;">📍 Coordinates & Calculations</h3>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
-          <div>
-            <h4>Point 1:</h4>
-            <p><strong>Input:</strong> ${coord1}</p>
-            <p><strong>Parsed:</strong> ${parsed1.latitude.toFixed(6)}, ${parsed1.longitude.toFixed(6)}</p>
-          </div>
-          <div>
-            <h4>Point 2:</h4>
-            <p><strong>Input:</strong> ${coord2}</p>
-            <p><strong>Parsed:</strong> ${parsed2.latitude.toFixed(6)}, ${parsed2.longitude.toFixed(6)}</p>
-          </div>
-        </div>
-        <div style="background: #e8f4fd; padding: 15px; border-radius: 4px;">
-          <h4>📏 Distance Calculation:</h4>
-          <p><strong>Distance:</strong> ${distance.toFixed(2)} km (${(distance * 0.621371).toFixed(2)} miles)</p>
-          <p><em>Using Haversine formula for great circle distance</em></p>
-        </div>
-      `;
-      results.style.display = 'block';
-    } else {
-      const errors = [];
-      if (!parsed1.isValid) errors.push(`Point 1: ${parsed1.error}`);
-      if (!parsed2.isValid) errors.push(`Point 2: ${parsed2.error}`);
-      
-      content.innerHTML = `
-        <div style="color: #ef4444;">
-          <h4>❌ Coordinate Parsing Errors:</h4>
-          ${errors.map(err => `<p>• ${err}</p>`).join('')}
-        </div>
-      `;
-      results.style.display = 'block';
     }
   }
   
