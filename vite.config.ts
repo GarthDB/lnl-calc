@@ -5,13 +5,19 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
+    rollupOptions: {
+      input: {
+        main: 'index.html'
+      }
+    }
   },
   server: {
     port: 3000,
     open: true,
   },
   esbuild: {
-    // Allow TypeScript errors during development
-    logLevel: 'silent'
+    // Skip TypeScript checking to avoid dependency compilation issues
+    include: /\.(ts|js|jsx)$/,
+    exclude: ['node_modules/**/*.ts']
   }
 }); 

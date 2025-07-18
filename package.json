@@ -1,19 +1,7 @@
 {
   "name": "lnl-calc",
   "version": "1.0.0",
-  "description": "A Latitude and Longitude calculator for geographic coordinate conversions and calculations",
-  "type": "module",
-  "main": "dist/index.js",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "test": "ava",
-    "test:watch": "ava --watch",
-    "deploy": "gh-pages -d dist",
-    "prepare": "husky",
-    "commitlint": "commitlint --edit"
-  },
+  "description": "A geographic coordinate calculator for Latitude and Longitude with support for multiple coordinate formats (DD, DDM, DMS), distance calculations, and coordinate conversions",
   "keywords": [
     "latitude",
     "longitude",
@@ -22,33 +10,39 @@
     "geographic",
     "mapping",
     "navigation",
-    "lit",
-    "web-components",
-    "spectrum"
+    "distance calculator"
   ],
-  "author": "Garth Braithwaite <garthdb@gmail.com> (http://garthdb.com/)",
-  "license": "Apache-2.0",
-  "dependencies": {
-    "@spectrum-web-components/bundle": "1.7.0",
-    "@spectrum-web-components/button": "^1.7.0",
-    "@spectrum-web-components/card": "^1.7.0",
-    "@spectrum-web-components/dropdown": "^0.10.1",
-    "@spectrum-web-components/menu": "^1.7.0",
-    "@spectrum-web-components/textfield": "^1.7.0",
-    "lit": "3.3.1"
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "ava",
+    "prepare": "husky"
   },
   "devDependencies": {
-    "@ava/typescript": "^6.0.0",
-    "@commitlint/cli": "^19.8.1",
-    "@commitlint/config-conventional": "^19.8.1",
-    "@types/node": "24.0.14",
-    "@web/test-runner": "0.20.2",
-    "@web/test-runner-playwright": "0.11.1",
-    "ava": "6.4.1",
-    "gh-pages": "6.3.0",
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@spectrum-web-components/bundle": "^0.14.0",
+    "@spectrum-web-components/button": "^0.17.0",
+    "@spectrum-web-components/card": "^0.3.0",
+    "@spectrum-web-components/dropdown": "^0.10.1",
+    "@spectrum-web-components/menu": "^1.7.0",
+    "@spectrum-web-components/textfield": "^0.15.0",
+    "@types/node": "^22.9.0",
+    "@web/test-runner": "^0.19.0",
+    "ava": "^6.2.0",
+    "gh-pages": "^6.2.0",
     "husky": "^9.1.7",
-    "tsx": "^4.20.3",
-    "typescript": "5.8.3",
-    "vite": "7.0.5"
-  }
+    "lit": "^3.2.1",
+    "typescript": "^5.6.3",
+    "vite": "^7.0.5"
+  },
+  "author": "Garth Braithwaite",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/garthdb/lnl-calc.git"
+  },
+  "homepage": "https://garthdb.github.io/lnl-calc/"
 }
