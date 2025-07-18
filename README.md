@@ -1,5 +1,8 @@
 # Latitude & Longitude Calculator
 
+[![CI/CD Pipeline](https://github.com/garthdb/lnl-calc/actions/workflows/deploy.yml/badge.svg)](https://github.com/garthdb/lnl-calc/actions/workflows/deploy.yml)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen?logo=github)](https://garthdb.github.io/lnl-calc/)
+
 A modern geographic coordinate calculator web application built with Lit, Spectrum Web Components, and TypeScript.
 
 ## Features
@@ -74,13 +77,32 @@ pnpm test:watch
 
 ### Deployment
 
-The project is configured for automatic deployment to GitHub Pages via GitHub Actions. Every push to the main branch will trigger a build and deployment.
+The project features **automatic deployment to GitHub Pages** via GitHub Actions:
 
-You can also manually deploy:
+#### 🔄 **Automatic Deployment**
+- **Trigger**: When PRs are merged into `main` branch
+- **Process**: 
+  1. Runs tests and builds the application
+  2. Deploys to GitHub Pages automatically
+  3. Updates live site at: https://garthdb.github.io/lnl-calc/
+
+#### 🚀 **CI/CD Pipeline**
+- **Pull Requests**: Runs tests and builds to validate changes
+- **Main Branch**: Runs tests, builds, and deploys to production
+- **Status**: Check the badges above for current build status
+
+#### 📦 **Manual Deployment** (if needed)
 ```bash
 pnpm build
 pnpm deploy
 ```
+
+#### 🔍 **Workflow Details**
+- **Tests**: Must pass before deployment
+- **Build**: Optimized production build with Vite
+- **Artifacts**: Build artifacts are cached between jobs
+- **Concurrency**: Only one deployment runs at a time
+- **Environment**: Deploys to `github-pages` environment
 
 ## Use Cases
 
