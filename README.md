@@ -107,6 +107,14 @@ pnpm deploy
 - **Concurrency**: Only one deployment runs at a time
 - **Environment**: Deploys to `github-pages` environment
 
+#### 🛡️ **Branch Protection**
+- **Direct pushes blocked**: All changes must come through PRs
+- **Required status checks**: `test` job must pass
+- **Required reviews**: Minimum 1 approving review
+- **Admin enforcement**: Even admins must follow the rules
+- **Force pushes disabled**: Prevents destructive changes
+- **Branch deletions disabled**: Protects main branch integrity
+
 ## Use Cases
 
 - **Navigation & GPS**: Convert coordinates between different formats for GPS devices
@@ -136,6 +144,8 @@ lnl-calc/
 
 ## Contributing
 
+**🛡️ Branch Protection**: The `main` branch is protected and requires all changes to go through pull requests with passing status checks.
+
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/new-feature`
 3. Make your changes
@@ -143,6 +153,9 @@ lnl-calc/
 5. Commit your changes using conventional commits (see below)
 6. Push to the branch: `git push origin feature/new-feature`
 7. Submit a pull request
+8. **Ensure CI passes**: The `test` job must pass before merging
+9. **Get approval**: At least 1 approving review required
+10. **Merge**: Only through PR merge (direct pushes to `main` are blocked)
 
 ### Commit Message Format
 
