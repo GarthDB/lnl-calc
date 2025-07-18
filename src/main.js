@@ -61,11 +61,11 @@ class SimpleCalculator extends HTMLElement {
             </sp-button>
           </div>
           
-                     <div id="results" style="margin-top: 20px; display: none;">
-             <sp-card style="margin-top: 10px;">
-               <div id="result-content" style="padding: 15px;"></div>
-             </sp-card>
-           </div>
+          <div id="results" style="margin-top: 20px; display: none;">
+            <sp-card style="margin-top: 10px;">
+              <div id="result-content" style="padding: 15px;"></div>
+            </sp-card>
+          </div>
         </div>
       </sp-card>
     `;
@@ -154,59 +154,59 @@ class SimpleCalculator extends HTMLElement {
       return;
     }
     
-              if (validation1.isValid && validation2.isValid) {
-       const parsed1 = validation1.parsed;
-       const parsed2 = validation2.parsed;
-       
-       // Calculate distance and bearing
-       const distance = this.calculateDistance(parsed1.latitude, parsed1.longitude, parsed2.latitude, parsed2.longitude);
-       const bearing = this.calculateBearing(parsed1.latitude, parsed1.longitude, parsed2.latitude, parsed2.longitude);
-       const midpoint = this.calculateMidpoint(parsed1.latitude, parsed1.longitude, parsed2.latitude, parsed2.longitude);
-       
-       // Get format conversions
-       const conv1 = this.getConversions(parsed1.latitude, parsed1.longitude);
-       const conv2 = this.getConversions(parsed2.latitude, parsed2.longitude);
-       
-       content.innerHTML = `
-         <div style="margin-bottom: 20px;">
-           <h4>📍 Point 1 Formats:</h4>
-           <div style="font-family: monospace; font-size: 12px; background: white; padding: 10px; border-radius: 4px; margin: 5px 0;">
-             <div><strong>DD:</strong> ${conv1.dd}</div>
-             <div><strong>DDM:</strong> ${conv1.ddm}</div>
-             <div><strong>DMS:</strong> ${conv1.dms}</div>
-           </div>
-         </div>
-         
-         <div style="margin-bottom: 20px;">
-           <h4>📍 Point 2 Formats:</h4>
-           <div style="font-family: monospace; font-size: 12px; background: white; padding: 10px; border-radius: 4px; margin: 5px 0;">
-             <div><strong>DD:</strong> ${conv2.dd}</div>
-             <div><strong>DDM:</strong> ${conv2.ddm}</div>
-             <div><strong>DMS:</strong> ${conv2.dms}</div>
-           </div>
-         </div>
-         
-         <div style="background: #e8f4fd; padding: 15px; border-radius: 4px;">
-           <h4>📏 Calculations:</h4>
-           <p><strong>Distance:</strong> ${distance.toFixed(2)} km (${(distance * 0.621371).toFixed(2)} miles)</p>
-           <p><strong>Bearing:</strong> ${bearing.toFixed(2)}°</p>
-           <p><strong>Midpoint:</strong> ${midpoint.lat.toFixed(6)}, ${midpoint.lng.toFixed(6)}</p>
-         </div>
-       `;
-       results.style.display = 'block';
-     } else {
-       const errors = [];
-       if (!validation1.isValid) errors.push(`Point 1: ${validation1.error}`);
-       if (!validation2.isValid) errors.push(`Point 2: ${validation2.error}`);
-       
-       content.innerHTML = `
-         <div style="color: #d73502;">
-           <h4>❌ Coordinate Parsing Errors:</h4>
-           ${errors.map(err => `<p>• ${err}</p>`).join('')}
-         </div>
-       `;
-       results.style.display = 'block';
-     }
+    if (validation1.isValid && validation2.isValid) {
+      const parsed1 = validation1.parsed;
+      const parsed2 = validation2.parsed;
+      
+      // Calculate distance and bearing
+      const distance = this.calculateDistance(parsed1.latitude, parsed1.longitude, parsed2.latitude, parsed2.longitude);
+      const bearing = this.calculateBearing(parsed1.latitude, parsed1.longitude, parsed2.latitude, parsed2.longitude);
+      const midpoint = this.calculateMidpoint(parsed1.latitude, parsed1.longitude, parsed2.latitude, parsed2.longitude);
+      
+      // Get format conversions
+      const conv1 = this.getConversions(parsed1.latitude, parsed1.longitude);
+      const conv2 = this.getConversions(parsed2.latitude, parsed2.longitude);
+      
+      content.innerHTML = `
+        <div style="margin-bottom: 20px;">
+          <h4>📍 Point 1 Formats:</h4>
+          <div style="font-family: monospace; font-size: 12px; background: white; padding: 10px; border-radius: 4px; margin: 5px 0;">
+            <div><strong>DD:</strong> ${conv1.dd}</div>
+            <div><strong>DDM:</strong> ${conv1.ddm}</div>
+            <div><strong>DMS:</strong> ${conv1.dms}</div>
+          </div>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+          <h4>📍 Point 2 Formats:</h4>
+          <div style="font-family: monospace; font-size: 12px; background: white; padding: 10px; border-radius: 4px; margin: 5px 0;">
+            <div><strong>DD:</strong> ${conv2.dd}</div>
+            <div><strong>DDM:</strong> ${conv2.ddm}</div>
+            <div><strong>DMS:</strong> ${conv2.dms}</div>
+          </div>
+        </div>
+        
+        <div style="background: #e8f4fd; padding: 15px; border-radius: 4px;">
+          <h4>📏 Calculations:</h4>
+          <p><strong>Distance:</strong> ${distance.toFixed(2)} km (${(distance * 0.621371).toFixed(2)} miles)</p>
+          <p><strong>Bearing:</strong> ${bearing.toFixed(2)}°</p>
+          <p><strong>Midpoint:</strong> ${midpoint.lat.toFixed(6)}, ${midpoint.lng.toFixed(6)}</p>
+        </div>
+      `;
+      results.style.display = 'block';
+    } else {
+      const errors = [];
+      if (!validation1.isValid) errors.push(`Point 1: ${validation1.error}`);
+      if (!validation2.isValid) errors.push(`Point 2: ${validation2.error}`);
+      
+      content.innerHTML = `
+        <div style="color: #d73502;">
+          <h4>❌ Coordinate Parsing Errors:</h4>
+          ${errors.map(err => `<p>• ${err}</p>`).join('')}
+        </div>
+      `;
+      results.style.display = 'block';
+    }
   }
   
   // Convert degrees to radians
