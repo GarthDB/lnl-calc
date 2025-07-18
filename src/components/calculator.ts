@@ -1,5 +1,8 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
+import '@spectrum-web-components/button/sp-button.js';
+import '@spectrum-web-components/textfield/sp-textfield.js';
+import '@spectrum-web-components/card/sp-card.js';
 
 /**
  * Latitude and Longitude Calculator Component

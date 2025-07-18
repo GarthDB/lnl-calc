@@ -8,6 +8,15 @@ dependencies:
   '@spectrum-web-components/bundle':
     specifier: 1.7.0
     version: 1.7.0
+  '@spectrum-web-components/button':
+    specifier: ^1.7.0
+    version: 1.7.0
+  '@spectrum-web-components/card':
+    specifier: ^1.7.0
+    version: 1.7.0
+  '@spectrum-web-components/textfield':
+    specifier: ^1.7.0
+    version: 1.7.0
   lit:
     specifier: 3.3.1
     version: 3.3.1

@@ -30,6 +30,9 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@spectrum-web-components/bundle": "1.7.0",
+    "@spectrum-web-components/button": "^1.7.0",
+    "@spectrum-web-components/card": "^1.7.0",
+    "@spectrum-web-components/textfield": "^1.7.0",
     "lit": "3.3.1"
   },
   "devDependencies": {
